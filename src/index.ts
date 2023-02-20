@@ -50,9 +50,9 @@ export const pinoLogLevelToBoltLogLevel = (level: string): BoltLogLevel => {
 //   warn()	...msgs: any[]	void
 //   error()	...msgs: any[]	void
 // see: https://github.com/slackapi/bolt-js/blob/main/docs/_advanced/logging.md
-export const PinoSlackBoltLogger = (logger: PinoLogger): BoltLogger => {
+export const PinoSlackBoltLogger = (logger: PinoLogger, name: string = 'bolt'): BoltLogger => {
   let innerLevel = pinoLogLevelToBoltLogLevel(logger.level);
-  let innerLogger = logger;
+  let innerLogger = logger.child({name});
 
   return {
     setLevel: (level: BoltLogLevel) => {
