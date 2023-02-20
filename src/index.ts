@@ -43,7 +43,7 @@ export const pinoLogLevelToBoltLogLevel = (level: string): BoltLogLevel => {
 
 export type PinoSlackBoltLoggerOptions = {
   logger: PinoLogger;
-  name: string;
+  name?: string;
 };
 
 // slack bolt-js custom loggers must implement this Logger interface:
