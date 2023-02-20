@@ -41,6 +41,11 @@ export const pinoLogLevelToBoltLogLevel = (level: string): BoltLogLevel => {
   }
 };
 
+export type PinoSlackBoltLoggerOptions = {
+  logger: PinoLogger;
+  name: string;
+};
+
 // slack bolt-js custom loggers must implement this Logger interface:
 //   setLevel()	level: LogLevel	void
 //   getLevel()	None	string with value error, warn, info, or debug
@@ -50,9 +55,12 @@ export const pinoLogLevelToBoltLogLevel = (level: string): BoltLogLevel => {
 //   warn()	...msgs: any[]	void
 //   error()	...msgs: any[]	void
 // see: https://github.com/slackapi/bolt-js/blob/main/docs/_advanced/logging.md
-export const PinoSlackBoltLogger = (logger: PinoLogger, name: string = 'bolt'): BoltLogger => {
+export const PinoSlackBoltLogger = ({
+  logger,
+  name = 'bolt',
+}: PinoSlackBoltLoggerOptions): BoltLogger => {
   let innerLevel = pinoLogLevelToBoltLogLevel(logger.level);
-  let innerLogger = logger.child({name});
+  let innerLogger = logger.child({ name });
 
   return {
     setLevel: (level: BoltLogLevel) => {
