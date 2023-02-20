@@ -1,0 +1,85 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  REPO_NAME: pino-slack-bolt
+  REPO_OWNER: davidalpert
+  CMD_NAME: '{{.REPO_NAME}}'
+  CURRENT_VERSION:
+    sh: sbot get version
+  VERSION: '{{ .NEXT_VERSION | default .CURRENT_VERSION }}'
+
+tasks:
+  default:
+    deps:
+      - help
+    silent: true
+
+  install-sbot:
+    cmds:
+      - go install github.com/restechnica/semverbot/cmd/sbot@latest
+    status:
+      - which sbot
+
+  deps:
+    desc: install development dependencies
+    deps:
+      - install-sbot
+
+  clean:
+    desc: clean build output
+    run: once
+    cmds:
+      - yarn clean
+    silent: false
+
+  dev:
+    desc: invoke 'yarn dev'
+    cmds:
+      - yarn dev {{.CLI_ARGS}}
+    silent: true
+
+  build:
+    desc: invoke 'yarn build'
+    cmds:
+      - yarn build {{.CLI_ARGS}}
+    silent: true
+
+  yarn:
+    desc: forward arbitrary commands to yarn (e.g. 'task yarn -- dev')
+    cmds:
+      - yarn {{.CLI_ARGS}}
+    silent: false
+
+  publish:
+    desc: publish to npm
+    cmds:
+      - npm publish
+    silent: false
+
+  bump-patch:
+    desc: bump version (patch)
+    cmds:
+      - yarn version --patch
+    silent: false
+
+  bump-minor:
+    desc: bump version (minor)
+    cmds:
+      - yarn version --minor
+    silent: false
+
+  bump-major:
+    desc: bump version (major)
+    cmds:
+      - yarn version --major
+    silent: false
+
+  help:
+    # desc: list targets
+    cmds:
+      - echo "{{ .CMD_NAME}} v{{ .VERSION }}"
+      - echo ""
+      - task --list
+    silent: true
