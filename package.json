@@ -1,6 +1,6 @@
 {
   "name": "pino-slack-bolt",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "a custom Logging adapater to use a pino logger in a slack bolt-js app",
   "repository": "https://github.com/davidalpert/pino-slack-bolt",
   "author": "David Alpert",
