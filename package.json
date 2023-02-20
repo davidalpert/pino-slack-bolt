@@ -1,0 +1,38 @@
+{
+  "name": "pino-slack-bolt",
+  "version": "0.0.1",
+  "description": "a custom Logging adapater to use a pino logger in a slack bolt-js app",
+  "repository": "https://github.com/davidalpert/pino-slack-bolt",
+  "author": "David Alpert",
+  "license": "MIT",
+  "private": false,
+  "files": [
+    "lib/**/*"
+  ],
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "clean": "rm -rf ./lib",
+    "format:eslint": "eslint --fix --ext \".ts\" .",
+    "format:prettier": "prettier --config .prettierrc **/*.ts --write",
+    "format": "yarn format:prettier && yarn format:eslint",
+    "lint:eslint": "eslint --max-warnings=0 --ext \".ts\" .",
+    "lint": "yarn lint:eslint",
+    "build": "yarn tsc -p ."
+  },
+  "dependencies": {
+    "@slack/bolt": "^3.12.2",
+    "@types/node": "^18.14.0",
+    "pino": "^8.10.0",
+    "typescript": "^4.9.5"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.52.0",
+    "@typescript-eslint/parser": "^5.52.0",
+    "eslint": "^8.34.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.4",
+    "ts-node": "^10.9.1"
+  }
+}
